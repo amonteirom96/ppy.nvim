@@ -1,109 +1,95 @@
 local M = {}
-
--- Definição das cores
-M.colors = {
-    light = {
-        bg = "#FFFFFF",
-        fg = "#2B2B2B",
-        accent = "#FF015B",
-        string = "#067D17",
-        keyword = "#0033B3",
-        function_name = "#00627A",
-        constant = "#871094",
-        number = "#1750EB",
-        operator = "#2B2B2B",
-        comment = "#8C8C8C",
-        type = "#000080",
-        variable = "#2B2B2B",
-        error = "#FF0000",
-        warning = "#FF8C00",
-        info = "#00B5FF",
-        hint = "#008000",
-        line_number = "#B3B3B3",
-        line_number_cursor = "#2B2B2B",
-        cursor_line_bg = "#FFFAE3",
-        selection_bg = "#A6D2FF",
-        pmenu_bg = "#F2F2F2",
-        pmenu_fg = "#2B2B2B",
-        pmenu_select_bg = "#A6D2FF",
-        visual_bg = "#A6D2FF",
-    },
-    dark = {
-        bg = "#2B2B2B",
-        fg = "#A9B7C6",
-        accent = "#FF015B",
-        string = "#6A8759",
-        keyword = "#CC7832",
-        function_name = "#FFC66D",
-        constant = "#9876AA",
-        number = "#6897BB",
-        operator = "#A9B7C6",
-        comment = "#808080",
-        type = "#A9B7C6",
-        variable = "#A9B7C6",
-        error = "#FF0000",
-        warning = "#FF8C00",
-        info = "#00B5FF",
-        hint = "#008000",
-        line_number = "#606366",
-        line_number_cursor = "#A9B7C6",
-        cursor_line_bg = "#323232",
-        selection_bg = "#214283",
-        pmenu_bg = "#3C3F41",
-        pmenu_fg = "#A9B7C6",
-        pmenu_select_bg = "#214283",
-        visual_bg = "#214283",
-    }
-}
+local colors = require('ppy.colors').colors
 
 -- Função para definir as cores
 function M.set_colors()
-    local colors = vim.o.background == 'light' and M.colors.light or M.colors.dark
+    local c = vim.o.background == 'light' and colors.light or colors.dark
 
-    -- Editor
-    vim.api.nvim_set_hl(0, "Normal", { fg = colors.fg, bg = colors.bg })
-    vim.api.nvim_set_hl(0, "NormalFloat", { fg = colors.fg, bg = colors.bg })
-    vim.api.nvim_set_hl(0, "Cursor", { fg = colors.bg, bg = colors.fg })
-    vim.api.nvim_set_hl(0, "CursorLine", { bg = colors.cursor_line_bg })
-    vim.api.nvim_set_hl(0, "LineNr", { fg = colors.line_number, bg = colors.bg })
-    vim.api.nvim_set_hl(0, "CursorLineNr", { fg = colors.line_number_cursor, bg = colors.cursor_line_bg })
-    vim.api.nvim_set_hl(0, "Visual", { bg = colors.visual_bg })
-    vim.api.nvim_set_hl(0, "IncSearch", { fg = colors.bg, bg = colors.accent })
-    vim.api.nvim_set_hl(0, "Search", { fg = colors.bg, bg = colors.accent })
+    local groups = {
+        -- Editor UI
+        Normal = { fg = c.fg, bg = c.bg },
+        NormalFloat = { fg = c.fg, bg = c.bg },
+        Cursor = { fg = c.bg, bg = c.cursor },
+        CursorLine = { bg = c.cursor_line_bg },
+        CursorLineNr = { fg = c.line_nr_cursor, bg = c.cursor_line_bg },
+        LineNr = { fg = c.line_nr, bg = c.bg },
+        SignColumn = { bg = c.bg },
+        ColorColumn = { bg = c.bg_alt },
+        VertSplit = { fg = c.border },
+        Visual = { bg = c.visual_bg },
+        VisualNOS = { bg = c.visual_bg },
+        IncSearch = { fg = c.bg, bg = c.keyword },
+        Search = { fg = c.bg, bg = c.keyword },
+        
+        -- Syntax
+        Comment = { fg = c.comment, italic = true },
+        Constant = { fg = c.constant },
+        String = { fg = c.string },
+        Character = { fg = c.string },
+        Number = { fg = c.number },
+        Boolean = { fg = c.keyword },
+        Float = { fg = c.number },
+        Identifier = { fg = c.fg },
+        Function = { fg = c.function_name },
+        Statement = { fg = c.keyword },
+        Conditional = { fg = c.keyword },
+        Repeat = { fg = c.keyword },
+        Label = { fg = c.keyword },
+        Operator = { fg = c.fg },
+        Keyword = { fg = c.keyword },
+        Exception = { fg = c.keyword },
+        PreProc = { fg = c.keyword },
+        Include = { fg = c.keyword },
+        Define = { fg = c.keyword },
+        Macro = { fg = c.keyword },
+        Type = { fg = c.type },
+        StorageClass = { fg = c.keyword },
+        Structure = { fg = c.type },
+        Typedef = { fg = c.type },
+        Special = { fg = c.keyword },
+        SpecialChar = { fg = c.string },
+        Tag = { fg = c.keyword },
+        Delimiter = { fg = c.fg },
+        SpecialComment = { fg = c.comment, italic = true },
+        Debug = { fg = c.keyword },
+        
+        -- Messages
+        Error = { fg = c.error },
+        ErrorMsg = { fg = c.error },
+        WarningMsg = { fg = c.warning },
+        InfoMsg = { fg = c.info },
+        HintMsg = { fg = c.hint },
+        
+        -- Diagnostics
+        DiagnosticError = { fg = c.error },
+        DiagnosticWarn = { fg = c.warning },
+        DiagnosticInfo = { fg = c.info },
+        DiagnosticHint = { fg = c.hint },
+        
+        -- Popup menu
+        Pmenu = { fg = c.pmenu_fg, bg = c.pmenu_bg },
+        PmenuSel = { fg = c.pmenu_fg, bg = c.pmenu_select },
+        PmenuSbar = { bg = c.pmenu_bg },
+        PmenuThumb = { bg = c.pmenu_select },
+        
+        -- Diff
+        DiffAdd = { bg = c.diff_add },
+        DiffChange = { bg = c.diff_text },
+        DiffDelete = { bg = c.diff_delete },
+        DiffText = { bg = c.diff_text },
+        
+        -- Statusline
+        StatusLine = { fg = c.statusline_fg, bg = c.statusline_bg },
+        StatusLineNC = { fg = c.statusline_fg, bg = c.statusline_bg },
+        
+        -- Indentation
+        IndentBlanklineChar = { fg = c.indent_guide },
+    }
 
-    -- Syntax
-    vim.api.nvim_set_hl(0, "Comment", { fg = colors.comment, italic = true })
-    vim.api.nvim_set_hl(0, "String", { fg = colors.string })
-    vim.api.nvim_set_hl(0, "Number", { fg = colors.number })
-    vim.api.nvim_set_hl(0, "Float", { fg = colors.number })
-    vim.api.nvim_set_hl(0, "Boolean", { fg = colors.keyword })
-    vim.api.nvim_set_hl(0, "Function", { fg = colors.function_name })
-    vim.api.nvim_set_hl(0, "Keyword", { fg = colors.keyword })
-    vim.api.nvim_set_hl(0, "Constant", { fg = colors.constant })
-    vim.api.nvim_set_hl(0, "Type", { fg = colors.type })
-    vim.api.nvim_set_hl(0, "Identifier", { fg = colors.variable })
-    vim.api.nvim_set_hl(0, "Operator", { fg = colors.operator })
-    vim.api.nvim_set_hl(0, "Special", { fg = colors.keyword })
-    vim.api.nvim_set_hl(0, "Statement", { fg = colors.keyword })
-    vim.api.nvim_set_hl(0, "PreProc", { fg = colors.keyword })
-
-    -- Popup menu
-    vim.api.nvim_set_hl(0, "Pmenu", { fg = colors.pmenu_fg, bg = colors.pmenu_bg })
-    vim.api.nvim_set_hl(0, "PmenuSel", { fg = colors.pmenu_fg, bg = colors.pmenu_select_bg })
-
-    -- Diagnostic
-    vim.api.nvim_set_hl(0, "DiagnosticError", { fg = colors.error })
-    vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = colors.warning })
-    vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = colors.info })
-    vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = colors.hint })
-
-    -- Diff
-    vim.api.nvim_set_hl(0, "DiffAdd", { fg = colors.string, bold = true })
-    vim.api.nvim_set_hl(0, "DiffChange", { fg = colors.constant, bold = true })
-    vim.api.nvim_set_hl(0, "DiffDelete", { fg = colors.error, bold = true })
-    vim.api.nvim_set_hl(0, "DiffText", { fg = colors.fg, bold = true })
-
-    -- Adicione mais grupos de destaque conforme necessário
+    -- Aplicar grupos de destaque
+    for group, settings in pairs(groups) do
+        vim.api.nvim_set_hl(0, group, settings)
+    end
 end
 
 -- Função para carregar o tema
@@ -116,6 +102,14 @@ function M.load()
     vim.g.colors_name = "ppy"
 
     M.set_colors()
+
+    -- Configurar autocmd para atualizar cores quando mudar entre light/dark
+    vim.api.nvim_create_autocmd("OptionSet", {
+        pattern = "background",
+        callback = function()
+            M.set_colors()
+        end,
+    })
 end
 
 return M
