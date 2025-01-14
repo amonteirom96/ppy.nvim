@@ -22,7 +22,7 @@ M.colors = {
         error = { fg = "#FF4E4E", bg = "#3F1F1F" },
         warning = { fg = "#EDA726", bg = "#3F2F1F" },
         info = { fg = "#287BDE", bg = "#1F2F3F" },
-        hint = { fg = "#98C379", bg = "#1F3F1F" },
+        hint = { fg = "#B78CFF", bg = "#2F1F3F" },
         diff_add = "#30492E",
         diff_delete = "#503D41",
         diff_text = "#2C2C3B",
@@ -55,7 +55,7 @@ M.colors = {
         error = { fg = "#FF0000", bg = "#FFE0E0" },
         warning = { fg = "#CF6A00", bg = "#FFF0E0" },
         info = { fg = "#0068D6", bg = "#E0F0FF" },
-        hint = { fg = "#067D17", bg = "#E0FFE0" },
+        hint = { fg = "#7C3AED", bg = "#F3E8FF" },
         diff_add = "#BFFFCF",
         diff_delete = "#FFD0D0",
         diff_text = "#FFEBCC",
@@ -71,4 +71,3 @@ M.colors = {
 }
 
 return M
-
