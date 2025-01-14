@@ -54,17 +54,17 @@ function M.set_colors()
         Debug = { fg = c.keyword },
         
         -- Messages
-        Error = { fg = c.error },
-        ErrorMsg = { fg = c.error },
-        WarningMsg = { fg = c.warning },
-        InfoMsg = { fg = c.info },
-        HintMsg = { fg = c.hint },
+        Error = { fg = c.error.fg, bg = c.error.bg },
+        ErrorMsg = { fg = c.error.fg, bg = c.error.bg },
+        WarningMsg = { fg = c.warning.fg, bg = c.warning.bg },
+        InfoMsg = { fg = c.info.fg, bg = c.info.bg },
+        HintMsg = { fg = c.hint.fg, bg = c.hint.bg },
         
         -- Diagnostics
-        DiagnosticError = { fg = c.error },
-        DiagnosticWarn = { fg = c.warning },
-        DiagnosticInfo = { fg = c.info },
-        DiagnosticHint = { fg = c.hint },
+        DiagnosticError = { fg = c.error.fg, bg = c.error.bg },
+        DiagnosticWarn = { fg = c.warning.fg, bg = c.warning.bg },
+        DiagnosticInfo = { fg = c.info.fg, bg = c.info.bg },
+        DiagnosticHint = { fg = c.hint.fg, bg = c.hint.bg },
         
         -- Popup menu
         Pmenu = { fg = c.pmenu_fg, bg = c.pmenu_bg },
@@ -113,3 +113,4 @@ function M.load()
 end
 
 return M
+

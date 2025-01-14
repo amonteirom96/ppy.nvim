@@ -19,10 +19,10 @@ M.colors = {
         interface = "#379AEF",
         line_nr = "#495162",
         line_nr_cursor = "#DEDEDE",
-        error = "#FF4E4E",
-        warning = "#EDA726",
-        info = "#287BDE",
-        hint = "#98C379",
+        error = { fg = "#FF4E4E", bg = "#3F1F1F" },
+        warning = { fg = "#EDA726", bg = "#3F2F1F" },
+        info = { fg = "#287BDE", bg = "#1F2F3F" },
+        hint = { fg = "#98C379", bg = "#1F3F1F" },
         diff_add = "#30492E",
         diff_delete = "#503D41",
         diff_text = "#2C2C3B",
@@ -52,10 +52,10 @@ M.colors = {
         interface = "#0057B3",  -- Azul mais escuro para interfaces
         line_nr = "#8D8F9A",
         line_nr_cursor = "#574356",
-        error = "#FF0000",
-        warning = "#CF6A00",  -- Laranja mais escuro para avisos
-        info = "#0068D6",  -- Azul mais escuro para informações
-        hint = "#067D17",  -- Verde mais escuro para dicas
+        error = { fg = "#FF0000", bg = "#FFE0E0" },
+        warning = { fg = "#CF6A00", bg = "#FFF0E0" },
+        info = { fg = "#0068D6", bg = "#E0F0FF" },
+        hint = { fg = "#067D17", bg = "#E0FFE0" },
         diff_add = "#BFFFCF",
         diff_delete = "#FFD0D0",
         diff_text = "#FFEBCC",
@@ -71,3 +71,4 @@ M.colors = {
 }
 
 return M
+
