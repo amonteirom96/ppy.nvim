@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs>
+<clipPath id="left"><polygon points="0,0 710,0 570,420 0,420"/></clipPath>
+<clipPath id="right"><polygon points="710,0 1280,0 1280,420 570,420"/></clipPath>
+<clipPath id="card"><rect width="1280" height="420" rx="24"/></clipPath>
+</defs>
+<g clip-path="url(#card)">
+<rect width="1280" height="420" fill="#ffffff"/>
+<rect width="1280" height="420" fill="#20202a" clip-path="url(#right)"/>
+<g clip-path="url(#left)">
+<text x="640" y="200" text-anchor="middle" font-family="'JetBrains Mono','SF Mono','Cascadia Code',Menlo,Consolas,monospace" font-size="128" font-weight="700" letter-spacing="-2" fill="#fb7385">ppy<tspan fill="#bdbdca">.nvim</tspan></text>
+<text x="640" y="258" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="26" fill="#232323" letter-spacing="0.5">a very ppy colour scheme, now for Neovim</text>
+<text x="640" y="372" text-anchor="middle" font-family="'JetBrains Mono','SF Mono','Cascadia Code',Menlo,Consolas,monospace" font-size="17" fill="#6d6d6d" letter-spacing="4">PORTED FROM PEPPY/PPY-JETBRAINS-THEME</text>
+</g>
+<g clip-path="url(#right)">
+<text x="640" y="200" text-anchor="middle" font-family="'JetBrains Mono','SF Mono','Cascadia Code',Menlo,Consolas,monospace" font-size="128" font-weight="700" letter-spacing="-2" fill="#fb7385">ppy<tspan fill="#505069">.nvim</tspan></text>
+<text x="640" y="258" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="26" fill="#d0d0d9" letter-spacing="0.5">a very ppy colour scheme, now for Neovim</text>
+<text x="640" y="372" text-anchor="middle" font-family="'JetBrains Mono','SF Mono','Cascadia Code',Menlo,Consolas,monospace" font-size="17" fill="#6d6a80" letter-spacing="4">PORTED FROM PEPPY/PPY-JETBRAINS-THEME</text>
+</g>
+<circle cx="520" cy="310" r="10" fill="#fb7385"/>
+<circle cx="560" cy="310" r="10" fill="#61afef"/>
+<circle cx="600" cy="310" r="10" fill="#98c379"/>
+<circle cx="640" cy="310" r="10" fill="#e5bc66"/>
+<circle cx="680" cy="310" r="10" fill="#ce95b8"/>
+<circle cx="720" cy="310" r="10" fill="#d3dde4"/>
+<circle cx="760" cy="310" r="10" fill="#5c6370"/>
+</g>
+</svg>

@@ -1,0 +1,156 @@
+*ppy.txt*        A very ppy colour scheme, ported from JetBrains to Neovim.
+
+==============================================================================
+CONTENTS                                                         *ppy-contents*
+
+  1. Introduction ............................ |ppy-introduction|
+  2. Usage ................................... |ppy-usage|
+  3. Configuration ........................... |ppy-config|
+  4. Commands ................................ |ppy-commands|
+  5. API ..................................... |ppy-api|
+  6. Extras .................................. |ppy-extras|
+  7. Credits ................................. |ppy-credits|
+
+==============================================================================
+1. INTRODUCTION                                              *ppy-introduction*
+
+ppy is a Neovim port of the ppy colour scheme for JetBrains IDEs, made by
+Dean Herbert (peppy): https://github.com/peppy/ppy-jetbrains-theme
+
+Syntax colors are taken verbatim from the original editor schemes
+(`ppy Dark.xml` / `ppy Light.xml`), and the UI from its "Dark Purple" theme:
+
+  - pink keywords, blue types, green functions
+  - yellow strings, magenta numbers, grey italic comments
+  - faded semicolons
+  - the purple `#region` / preprocessor block
+  - the orange bold TODO block
+  - blue Markdown headers on a tinted band
+  - wavy errors and warnings on a tinted background, dotted lime hints
+
+Highlights are compiled to LuaJIT bytecode and cached, so a cached load takes
+a few milliseconds.
+
+==============================================================================
+2. USAGE                                                            *ppy-usage*
+
+>lua
+    require("ppy").setup({})   -- optional
+    vim.cmd.colorscheme("ppy")
+<
+                                              *ppy* *ppy-light* *ppy-dark*
+  ppy         follows 'background' (or the `variant` option)
+  ppy-light   always light
+  ppy-dark    always dark
+
+Neovim detects the terminal background at startup. When you use `ppy`, the
+theme follows the terminal and switches when 'background' changes.
+
+                                                           *ppy-semicolons*
+Rider fades `;` out. Treesitter puts semicolons, commas and dots in the same
+capture, so the plugin ships small `;extends` queries that add a
+`@punctuation.delimiter.semicolon` capture for c, cpp, c_sharp, java,
+javascript, typescript, tsx, rust, go, css, scss and php. With other
+colorschemes the capture falls back to `@punctuation.delimiter`, so nothing
+changes there. Turn the fade off with `dim_semicolons = false`.
+
+==============================================================================
+3. CONFIGURATION                                                   *ppy-config*
+
+Defaults:
+>lua
+    require("ppy").setup({
+      variant = "auto",        -- "auto" | "light" | "dark"
+      transparent = false,
+      terminal_colors = true,
+      dim_inactive = false,
+      dim_semicolons = true,   -- `;` in the faded semicolon tone
+      float = { solid = false },
+      styles = {
+        comments = { italic = true },
+        keywords = {},
+        functions = {}, variables = {}, strings = {},
+        types = {}, constants = {}, operators = {},
+      },
+      integrations = {
+        blink = true, dropbar = true, gitsigns = true, grug_far = true,
+        lazy = true, mason = true, mini = true,
+        semantic_tokens = true, statusline = true, treesitter = true,
+      },
+      cache = true,
+      on_colors = nil,         -- fun(colors, variant)
+      on_highlights = nil,     -- fun(hl, colors, variant)
+    })
+<
+                                                                *ppy-on_colors*
+on_colors(colors, variant)
+    Change the palette before highlights are built. Keys: `bg`, `fg`, `red`,
+    `orange`, `yellow`, `green`, `cyan`, `azure`, `blue`, `purple`, `pink`,
+    `magenta`, `accent`, `muted`, `border`, `bg_dim`, `bg_float`,
+    `git.{add,change,delete}`, `diag.{error,warn,info,hint,ok}`,
+    `diff.{add,change,text,delete}`,
+    `ui.{fg,panel,panel_sel,header,list_sel,accent,border,split,muted,`
+       `cursorline,selection,line_nr,line_nr_cur,indent,indent_active,ref,`
+       `ref_write,match,search,cur_search,fold_fg,fold_bg,todo_fg,todo_bg,`
+       `error_bg,warn_bg,lens_fg,lens_bg,heading_fg,heading_bg,link,hint,`
+       `injected}`,
+    `code.{keyword,type,interface,enum,func,func_decl,accessor,variable,`
+         `parameter,static,constant,string,format,escape,number,comment,doc,`
+         `doc_tag,doc_value,doc_markup,semicolon,preproc_fg,preproc_bg}`.
+
+                                                            *ppy-on_highlights*
+on_highlights(hl, colors, variant)
+    Change or add highlight groups. `hl` maps group names to
+    |nvim_set_hl()| specs, with colors as "#rrggbb" strings.
+
+The compiled cache is keyed by a hash of your options, so changes take effect
+on the next `:colorscheme`. The hash covers function bodies but not captured
+upvalues. If you change such a value, run |:PpyCompile|.
+
+==============================================================================
+4. COMMANDS                                                      *ppy-commands*
+
+                                                                  *:PpyCompile*
+:PpyCompile             Delete and rebuild the compiled cache, then reload.
+
+                                                               *:PpyClearCache*
+:PpyClearCache          Delete the compiled cache.
+
+                                                                   *:PpyExtras*
+:PpyExtras [dir]        Write the Ghostty, Kitty and Lazygit themes to [dir]
+                        (default: the plugin's `extras/` directory).
+
+==============================================================================
+5. API                                                                *ppy-api*
+
+require("ppy").setup({opts})         Configure.
+require("ppy").load({name})          Apply a colorscheme by name.
+require("ppy").colors({variant})     Return the full palette.
+require("ppy").highlights({variant}) Return the final highlight table.
+require("ppy").compile()             Same as |:PpyCompile|.
+require("ppy").clear_cache()         Same as |:PpyClearCache|.
+require("ppy").extras({dir})         Same as |:PpyExtras|.
+
+==============================================================================
+6. EXTRAS                                                          *ppy-extras*
+
+extras/ghostty/ppy-{light,dark}
+    Copy to ~/.config/ghostty/themes/ and set:
+    `theme = light:ppy-light,dark:ppy-dark`
+
+extras/kitty/ppy-{light,dark}.conf
+    Copy to ~/.config/kitty/{light,dark}-theme.auto.conf.
+
+extras/lazygit/ppy-{light,dark}.yml
+    Merge into config.yml, or append to LG_CONFIG_FILE.
+
+==============================================================================
+7. CREDITS                                                        *ppy-credits*
+
+The colour scheme is the work of Dean Herbert (peppy), released under the MIT
+license: https://github.com/peppy/ppy-jetbrains-theme
+
+This plugin ports it to Neovim. The plugin structure follows essential.nvim:
+https://github.com/amonteirom96/essential.nvim
+
+ vim:tw=78:ts=8:ft=help:norl:
